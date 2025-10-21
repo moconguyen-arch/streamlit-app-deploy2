@@ -9,11 +9,16 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
 from langchain_openai import ChatOpenAI
+import os
+
+api_key = os.getenv("OPENAI_API_KEY")
+
 llm = ChatOpenAI(
-    model_name="gpt-3.5-turbo",  # または "gpt-4o-mini"
-    openai_api_key=api_key,
+    model="gpt-3.5-turbo",   
+    api_key=api_key,         
     temperature=0.7
 )
+
 from langchain.schema import SystemMessage, HumanMessage
 
 # ==========================
