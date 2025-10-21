@@ -1,16 +1,19 @@
 import os
 import streamlit as st
-from langchain_openai import ChatOpenAI
-from langchain.schema import SystemMessage, HumanMessage
 from dotenv import load_dotenv
-
 load_dotenv()
 
+from langchain_openai import ChatOpenAI
+from langchain.schema import SystemMessage, HumanMessage
+
+#API Key取得
 api_key = os.getenv("OPENAI_API_KEY")
+
+import openai
+openai.api_key = api_key
 
 llm = ChatOpenAI(
     model="gpt-3.5-turbo",
-    api_key=api_key, 
     temperature=0.7
 )
 # ==========================
