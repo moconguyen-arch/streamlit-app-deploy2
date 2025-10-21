@@ -7,9 +7,8 @@ from langchain.schema import SystemMessage, HumanMessage
 api_key = os.getenv("OPENAI_API_KEY") 
 
 llm = ChatOpenAI(
-    model="gpt-3.5-turbo",  # ✅ model_name ではなく model を使用
-    temperature=0.7,
-    api_key=api_key         # ✅ 明示的に渡す（環境変数でもOK）
+    model="gpt-3.5-turbo",
+    temperature=0.7
 )
 
 # ==========================
