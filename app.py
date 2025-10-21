@@ -1,23 +1,16 @@
-from dotenv import load_dotenv
 import os
 import streamlit as st
-
-# .env を読み込む
-load_dotenv()
-
-# APIキー取得
-api_key = os.getenv("OPENAI_API_KEY")
-
 from langchain_openai import ChatOpenAI
-import os
+from langchain.schema import SystemMessage, HumanMessage
 
-api_key = os.getenv("OPENAI_API_KEY")
+#PI key
+api_key = os.getenv("OPENAI_API_KEY") 
 
 llm = ChatOpenAI(
-    model="gpt-3.5-turbo",
-    temperature=0.7
+    model="gpt-3.5-turbo",  # ✅ model_name ではなく model を使用
+    temperature=0.7,
+    api_key=api_key         # ✅ 明示的に渡す（環境変数でもOK）
 )
-from langchain.schema import SystemMessage, HumanMessage
 
 # ==========================
 # Streamlit App 設定
@@ -31,16 +24,7 @@ st.write("""
 """)
 
 # ==========================
-# LangChain LLM設定
-# ==========================
-llm = ChatOpenAI(
-    model_name="gpt-3.5-turbo",
-    openai_api_key=api_key, 
-    temperature=0.7
-)
-
-# ==========================
-# 専門家タイプを選択
+# 専門家タイプ選択
 # ==========================
 expert_type = st.radio(
     "どの専門家に相談しますか？",
@@ -53,11 +37,10 @@ expert_type = st.radio(
 user_input = st.text_area("あなたの質問を入力してください:")
 
 # ==========================
-# LLMインスタンス作成
+# 回答生成関数
 # ==========================
 def get_expert_answer(expert: str, question: str) -> str:
     """専門家タイプと質問を引数に取り、LLMからの回答を返す。"""
-    
     if expert == "心理カウンセラー":
         system_prompt = "あなたは共感力の高い心理カウンセラーです。相談者の気持ちを理解し、前向きな気づきを与えるような助言をしてください。"
     elif expert == "料理専門家":
@@ -71,7 +54,6 @@ def get_expert_answer(expert: str, question: str) -> str:
         SystemMessage(content=system_prompt),
         HumanMessage(content=question)
     ]
-
     response = llm(messages)
     return response.content
 
