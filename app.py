@@ -2,15 +2,17 @@ import os
 import streamlit as st
 from langchain_openai import ChatOpenAI
 from langchain.schema import SystemMessage, HumanMessage
+from dotenv import load_dotenv
 
-#PI key
-api_key = os.getenv("OPENAI_API_KEY") 
+load_dotenv()
+
+api_key = os.getenv("OPENAI_API_KEY")
 
 llm = ChatOpenAI(
     model="gpt-3.5-turbo",
+    api_key=api_key, 
     temperature=0.7
 )
-
 # ==========================
 # Streamlit App 設定
 # ==========================
