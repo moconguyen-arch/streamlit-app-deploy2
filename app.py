@@ -8,7 +8,7 @@ load_dotenv()
 # APIキー取得
 api_key = os.getenv("OPENAI_API_KEY")
 
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 llm = ChatOpenAI(
     model_name="gpt-3.5-turbo",  # または "gpt-4o-mini"
     openai_api_key=api_key,
